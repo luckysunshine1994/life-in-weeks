@@ -8,7 +8,7 @@ YEARS = 85
 W, H = 1179, 2556
 S = 3  # supersample for smooth dots
 
-BG = (22, 16, 38)
+BG = (0, 0, 0)
 random.seed(19101994)
 
 

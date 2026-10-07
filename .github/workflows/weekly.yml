@@ -1,0 +1,21 @@
+name: Redraw wallpaper
+on:
+  schedule:
+    - cron: "0 2 * * *"   # daily; only commits when the week ticks over
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  draw:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install pillow && python make.py
+      - run: |
+          git config user.name "wallpaper-bot"
+          git config user.email "wallpaper-bot@users.noreply.github.com"
+          git add wallpaper.png
+          git commit -m "Week update $(date +%F)" || echo "no change"
+          git push
